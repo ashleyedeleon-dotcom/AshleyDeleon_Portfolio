@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashley Deleon — Designer & Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A5E;
+    --navy-dark: #10193f;
+    --blue: #3B5BDB;
+    --bg: #FFFFFF;
+    --bg-soft: #F4F5F7;
+    --border: #E5E7EB;
+    --text: #111827;
+    --text-muted: #5B6472;
+    --text-faint: #9AA1AC;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  a { text-decoration: none; color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .topbar .logo {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+
+  .topbar nav {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .topbar nav a:hover { color: var(--navy); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 40px 0 80px;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 18px;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(40px, 5vw, 56px);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+  }
+
+  .hero-text h1 .accent { color: var(--navy); }
+
+  .lede {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--text-muted);
+    max-width: 46ch;
+    margin: 0 0 32px;
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-primary, .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--navy-dark); transform: translateY(-1px); }
+
+  .btn-ghost {
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+
+  /* ---------- Hero intro panel (left) ---------- */
+  .pond-panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 44px 40px;
+    background: #FFFFFF;
+  }
+
+  .pond-fish {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 46px;
+    height: 24px;
+    z-index: 999;
+    pointer-events: none;
+    transform-origin: 23px 12px;
+    opacity: 0.92;
+  }
+
+  .fish-tail {
+    transform-origin: 12px 12px;
+    animation: tail-wag 0.55s ease-in-out infinite;
+  }
+
+  @keyframes tail-wag {
+    0%, 100% { transform: rotate(14deg); }
+    50%      { transform: rotate(-14deg); }
+  }
+
+  .pond-panel .hero-text-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .fish-target {
+    display: inline-block;
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), text-shadow 0.45s ease;
+  }
+
+  .fish-target.risen {
+    transform: translateY(-10px);
+    text-shadow: 0 16px 22px rgba(27, 42, 94, 0.18);
+  }
+
+  /* ---------- Hero signature: magnetic tag field ---------- */
+  .hero-signature {
+    position: relative;
+    height: 340px;
+    border-radius: 20px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero-signature::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #D8DCE5 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: 0.7;
+  }
+
+  .tag {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid var(--border);
+    color: var(--navy);
+    white-space: nowrap;
+    cursor: default;
+    box-shadow: 0 2px 6px rgba(16, 25, 63, 0.06);
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .tag:hover {
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(16, 25, 63, 0.22);
+  }
+
+  @keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -8px; }
+  }
+
+  /* fixed layout positions for the tags within the panel */
+  .tag:nth-child(1) { top: 14%; left: 8%;  animation-duration: 6.5s; }
+  .tag:nth-child(2) { top: 8%;  left: 46%; animation-duration: 8s; animation-delay: .4s; }
+  .tag:nth-child(3) { top: 42%; left: 6%;  animation-duration: 7.2s; animation-delay: .8s; }
+  .tag:nth-child(4) { top: 46%; left: 55%; animation-duration: 6.8s; animation-delay: .2s; }
+  .tag:nth-child(5) { top: 74%; left: 14%; animation-duration: 7.6s; animation-delay: .6s; }
+  .tag:nth-child(6) { top: 78%; left: 52%; animation-duration: 7s;   animation-delay: 1s; }
+
+  /* ---------- About grid: Education + Experience side by side ---------- */
+  .about-grid {
+    padding: 64px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .about-grid .wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 20px;
+  }
+
+  .section-label.small { margin: 28px 0 14px; font-size: 11px; }
+
+  .edu-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    margin: 0 0 14px;
+  }
+
+  .edu-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .edu-card .loc {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-faint);
+    margin-left: 8px;
+  }
+
+  .edu-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+
+  .edu-card .muted { color: var(--text-muted); font-size: 14px; }
+
+  .label-blue {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-right: 10px;
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    font-size: 13px;
+    padding: 8px 14px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+  }
+
+  .exp-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px;
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .exp-card.light { background: var(--bg-soft); color: var(--text); }
+  .exp-card.dark  { background: var(--navy); color: #fff; }
+
+  .exp-role strong { margin-right: 8px; }
+
+  .exp-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  .edit-note {
+    font-size: 12px;
+    color: var(--text-faint);
+    font-style: italic;
+    margin-top: 12px;
+  }
+
+  /* ---------- Work / Projects ---------- */
+  .work {
+    padding: 64px 0 96px;
+    border-top: 1px solid var(--border);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .project-card {
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.25s cubic-bezier(.2,.7,.3,1), box-shadow 0.25s ease;
+  }
+
+  .project-card:hover, .project-card:focus-visible {
+    transform: scale(0.97);
+    box-shadow: 0 10px 28px rgba(16, 25, 63, 0.12);
+  }
+
+  .project-thumb {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    position: relative;
+  }
+
+  /* Swap these gradients for <img> tags with your real project images */
+  .ph1 { background: linear-gradient(135deg, #1B2A5E, #3B5BDB); }
+  .ph2 { background: linear-gradient(135deg, #3B5BDB, #7C9CFF); }
+  .ph3 { background: linear-gradient(135deg, #10193f, #1B2A5E); }
+  .ph4 { background: linear-gradient(135deg, #4B5563, #1B2A5E); }
+
+  .project-meta {
+    padding: 18px 20px 22px;
+  }
+
+  .project-meta h3 {
+    font-size: 16px;
+    margin: 0 0 6px;
+  }
+
+  .project-meta p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  footer p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin: 0 0 14px;
+  }
+
+  footer .socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  footer .socials a { color: var(--navy); font-weight: 600; }
+  footer .socials a:hover { text-decoration: underline; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-signature { height: 260px; order: -1; }
+    .about-grid .wrap { grid-template-columns: 1fr; gap: 40px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .topbar nav { gap: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tag { animation: none; transition: none; }
+    html { scroll-behavior: auto; }
+    .project-card, .btn-primary { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="logo mono">A. DELEON</span>
+    <nav>
+      <a href="index.html#top">Home</a>
+    </nav>
+  </div>
+
+  <svg class="pond-fish" id="fish" viewBox="-8 0 50 24" xmlns="http://www.w3.org/2000/svg">
+    <path class="fish-tail" d="M12 12 L-6 4 L-6 20 Z" fill="var(--blue)"/>
+    <ellipse cx="26" cy="12" rx="15" ry="7" fill="var(--navy)"/>
+    <circle cx="36" cy="10" r="1.5" fill="#fff"/>
+  </svg>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-inner">
+      <div class="hero-text pond-panel" id="pond">
+        <div class="hero-text-content">
+          <p class="eyebrow">Designer & Developer</p>
+          <h1>Hi, my name is <span class="accent fish-target" id="hero-name">Ashley Deleon.</span></h1>
+          <p class="lede">I design digital experiences at the intersection of technology, culture, and communication. Passionate about UX, visual storytelling, and systems thinking.</p>
+          <div class="hero-links">
+            <a href="#work" class="btn-primary">View Work</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-signature" id="signature">
+        <span class="tag" data-tag>UX Research</span>
+        <span class="tag" data-tag>Systems Thinking</span>
+        <span class="tag" data-tag>Visual Storytelling</span>
+        <span class="tag" data-tag>Prototyping</span>
+        <span class="tag" data-tag>Accessibility</span>
+        <span class="tag" data-tag>Front-End Code</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-grid">
+    <div class="wrap">
+      <div class="education">
+        <p class="section-label fish-target">Education</p>
+        <div class="edu-card">
+          <h3><img src="assets/duke-chapel-icon.png" alt="" class="edu-logo"> Duke University <span class="loc">Durham, NC</span></h3>
+          <p><span class="label-blue">Major</span>Computer Science & Political Science <span class="muted">(International Relations concentration)</span></p>
+          <p><span class="label-blue">Minor</span>Computational Media</p>
+        </div>
+
+        <p class="section-label small fish-target">Relevant Coursework</p>
+        <div class="chip-row">
+          <span class="chip">Web-Based Multimedia Communications / Web Design</span>
+          <span class="chip">Anthropology of Design and UX</span>
+          <span class="chip">Computer Game Design</span>
+          <span class="chip">Video Journalism</span>
+          <span class="chip">Theories of Visual Media Studies</span>
+        </div>
+      </div>
+
+      <div class="experience">
+        <p class="section-label fish-target">Experience</p>
+        <div class="exp-card light">
+          <span class="exp-role"><strong>Autodesk</strong>Design Intern</span>
+          <span class="exp-year">2024</span>
+        </div>
+        <div class="exp-card dark">
+          <span class="exp-role"><strong>RTX</strong>Intern</span>
+          <span class="exp-year">2023</span>
+        </div>
+
+        <p class="section-label small">Skills</p>
+        <div class="chip-row">
+          <span class="chip">Figma</span>
+          <span class="chip">Wireframing</span>
+          <span class="chip">User Research</span>
+          <span class="chip">Prototyping</span>
+          <span class="chip">HTML / CSS</span>
+          <span class="chip">Accessibility (WCAG 2.1)</span>
+        </div>
+        <p class="edit-note">*Placeholder skills — swap in your real list</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="wrap">
+      <p class="section-label fish-target">Selected Projects</p>
+      <div class="project-grid">
+        <a class="project-card" href="project-01.html">
+          <div class="project-thumb ph1"><span>Project 01</span></div>
+          <div class="project-meta">
+            <h3>Project Title</h3>
+            <p>One-line description of the project</p>
+          </div>
+        </a>
+        <a class="project-card" href="project-02.html">
+          <div class="project-thumb ph2"><span>Project 02</span></div>
+          <div class="project-meta">
+            <h3>Project Title</h3>
+            <p>One-line description of the project</p>
+          </div>
+        </a>
+        <a class="project-card" href="project-03.html">
+          <div class="project-thumb ph3"><span>Project 03</span></div>
+          <div class="project-meta">
+            <h3>Project Title</h3>
+            <p>One-line description of the project</p>
+          </div>
+        </a>
+        <a class="project-card" href="project-04.html">
+          <div class="project-thumb ph4"><span>Project 04</span></div>
+          <div class="project-meta">
+            <h3>Project Title</h3>
+            <p>One-line description of the project</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>Let's build something together.</p>
+    <div class="socials">
+      <a href="mailto:you@example.com">Email</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+    </div>
+  </footer>
+
+<script>
+  // Magnetic hero tags: nudge each tag away from the cursor when nearby
+  (function () {
+    const panel = document.getElementById('signature');
+    const tags = Array.from(panel.querySelectorAll('.tag'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const RADIUS = 130;   // px, how close the cursor needs to be to affect a tag
+    const STRENGTH = 0.35; // how far tags move relative to distance
+
+    panel.addEventListener('mousemove', (e) => {
+      const rect = panel.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      tags.forEach((tag) => {
+        const tRect = tag.getBoundingClientRect();
+        const tx = tRect.left - rect.left + tRect.width / 2;
+        const ty = tRect.top - rect.top + tRect.height / 2;
+
+        const dx = tx - mx;
+        const dy = ty - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < RADIUS) {
+          const push = (1 - dist / RADIUS) * RADIUS * STRENGTH;
+          const angle = Math.atan2(dy, dx);
+          const moveX = Math.cos(angle) * push;
+          const moveY = Math.sin(angle) * push;
+          tag.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        } else {
+          tag.style.transform = '';
+        }
+      });
+    });
+
+    panel.addEventListener('mouseleave', () => {
+      tags.forEach((tag) => (tag.style.transform = ''));
+    });
+  })();
+
+  // Fish companion: roams the whole page, follows the cursor,
+  // and lifts any "fish-target" element it swims underneath
+  (function () {
+    const fish = document.getElementById('fish');
+    const targets = Array.from(document.querySelectorAll('.fish-target'));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      fish.style.display = 'none';
+      return;
+    }
+
+    const FISH_W = 46, FISH_H = 24;
+    let pos = { x: window.innerWidth * 0.3, y: window.innerHeight * 0.3 };
+    let target = { ...pos };
+    let angle = 0;
+    let idle = true;
+    let idleT = Math.random() * 10;
+    let idleTimeout = null;
+
+    window.addEventListener('mousemove', (e) => {
+      idle = false;
+      clearTimeout(idleTimeout);
+      target.x = e.clientX;
+      target.y = e.clientY;
+      idleTimeout = setTimeout(() => { idle = true; }, 2200);
+    });
+
+    function tick() {
+      const w = window.innerWidth, h = window.innerHeight;
+
+      if (idle) {
+        idleT += 0.006;
+        target.x = w * 0.5 + Math.sin(idleT) * (w * 0.32);
+        target.y = h * 0.4 + Math.sin(idleT * 0.7) * (h * 0.22);
+      }
+
+      const dx = target.x - pos.x;
+      const dy = target.y - pos.y;
+      pos.x += dx * 0.06;
+      pos.y += dy * 0.06;
+
+      if (Math.abs(dx) + Math.abs(dy) > 0.6) {
+        angle = Math.atan2(dy, dx) * (180 / Math.PI);
+      }
+
+      fish.style.transform =
+        `translate(${pos.x - FISH_W / 2}px, ${pos.y - FISH_H / 2}px) rotate(${angle}deg)`;
+
+      // Check overlap against every fish-target on the page (viewport coords,
+      // so this works correctly regardless of scroll position)
+      const pad = 16;
+      targets.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const overlapping =
+          pos.x > r.left - pad && pos.x < r.right + pad &&
+          pos.y > r.top - pad && pos.y < r.bottom + pad;
+        el.classList.toggle('risen', overlapping);
+      });
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+</script>
+
+</body>
+</html>
