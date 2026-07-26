@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 01 — Ashley Deleon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2A5E;
+    --navy-dark: #10193f;
+    --blue: #3B5BDB;
+    --bg: #FFFFFF;
+    --bg-soft: #F4F5F7;
+    --border: #E5E7EB;
+    --text: #111827;
+    --text-muted: #5B6472;
+    --text-faint: #9AA1AC;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { text-decoration: none; color: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .topbar .logo { font-weight: 700; font-size: 15px; letter-spacing: 0.02em; }
+  .topbar nav { display: flex; gap: 28px; font-size: 14px; color: var(--text-muted); }
+  .topbar nav a:hover { color: var(--navy); }
+
+  /* ---------- Case hero ---------- */
+  .case-hero { padding: 40px 0 8px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 18px;
+  }
+
+  .case-hero h1 {
+    font-size: clamp(36px, 4.6vw, 54px);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+    max-width: 18ch;
+  }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .meta-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-muted);
+  }
+  .meta-badge strong { color: var(--navy); font-weight: 600; }
+
+  /* ---------- Layered hero image ---------- */
+  .layer-stack {
+    position: relative;
+    height: 400px;
+    margin: 44px 0 64px;
+  }
+
+  .layer-card {
+    position: absolute;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .layer-card.back {
+    top: 24px;
+    left: 24px;
+    width: 92%;
+    height: 100%;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text-faint);
+    transform: rotate(-2deg);
+  }
+
+  .layer-card.front {
+    top: 0;
+    left: 0;
+    width: 92%;
+    height: 100%;
+    background: linear-gradient(135deg, #1B2A5E, #3B5BDB);
+    color: rgba(255,255,255,0.85);
+    box-shadow: 0 24px 48px rgba(16, 25, 63, 0.18);
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .layer-card.front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  .case-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin: -12px 0 24px;
+  }
+
+  /* ---------- Two-column case blocks ---------- */
+  .case-block { padding: 24px 0 56px; border-top: 1px solid var(--border); }
+  .case-block .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 0 0 16px;
+  }
+
+  .case-block p.body-text, .outcome-section p.body-text {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .label-blue {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-right: 10px;
+  }
+
+  .field-row {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 10px;
+    color: var(--text);
+  }
+
+  .sub-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin: 22px 0 10px;
+  }
+  .sub-label:first-child { margin-top: 0; }
+
+  /* ---------- Process: layered wireframe -> figma ---------- */
+  .process-section { padding: 8px 0 56px; border-top: 1px solid var(--border); }
+
+  .process-stack {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin: 28px 0 16px;
+  }
+
+  .process-card {
+    flex: 1;
+    height: 260px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .process-card.wireframe {
+    background: var(--bg-soft);
+    border: 1.5px dashed var(--border);
+    color: var(--text-faint);
+    transform: rotate(-1.5deg);
+  }
+
+  .process-card.figma {
+    background: linear-gradient(135deg, #3B5BDB, #7C9CFF);
+    color: #fff;
+    box-shadow: 0 20px 40px rgba(16, 25, 63, 0.15);
+    transform: rotate(1deg);
+  }
+
+  .process-card.has-img {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .process-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  .process-arrow {
+    font-size: 22px;
+    color: var(--text-faint);
+    flex-shrink: 0;
+  }
+
+  .edit-note {
+    font-size: 12px;
+    color: var(--text-faint);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* ---------- Key features ---------- */
+  .feature-section { padding: 8px 0 56px; border-top: 1px solid var(--border); }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 24px;
+  }
+
+  .feature-card {
+    background: var(--bg-soft);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+
+  .feature-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--navy);
+    margin: 0 0 8px;
+  }
+
+  .feature-body {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .feature-card.has-media {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .feature-media {
+    width: 104px;
+    height: 104px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #fff;
+    cursor: zoom-in;
+    box-shadow: 0 4px 10px rgba(16, 25, 63, 0.1);
+  }
+
+  .feature-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .feature-text { flex: 1; }
+
+  @media (max-width: 480px) {
+    .feature-card.has-media { flex-direction: column; }
+    .feature-media { width: 100%; height: 160px; }
+  }
+
+  /* ---------- Design decisions ---------- */
+  .rationale-section { padding: 8px 0 56px; border-top: 1px solid var(--border); }
+
+  .rationale-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    margin-top: 24px;
+  }
+
+  .rationale-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--bg-soft);
+    border-left: 4px solid var(--navy);
+    border-radius: 14px;
+    padding: 26px 24px;
+  }
+
+  .rationale-img {
+    width: 76px;
+    height: 76px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--border);
+  }
+
+  .rationale-img-placeholder {
+    width: 76px;
+    height: 76px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background: #fff;
+    border: 1.5px dashed var(--text-faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .rationale-text { flex: 1; }
+
+  .rationale-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  .rationale-card p.rationale-body {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ---------- Prototype CTA ---------- */
+  .prototype-section {
+    padding: 40px 0 56px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 30px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    background: var(--navy);
+    color: #fff;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .btn-primary:hover { background: var(--navy-dark); transform: translateY(-1px); }
+
+  /* ---------- Outcome ---------- */
+  .outcome-section { padding: 8px 0 64px; border-top: 1px solid var(--border); }
+
+  .slides-embed {
+    position: relative;
+    width: 100%;
+    padding-top: 59.3%;
+    margin-top: 8px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(16, 25, 63, 0.12);
+    border: 1px solid var(--border);
+  }
+  .slides-embed iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* ---------- Footer nav ---------- */
+  .footer-nav {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 56px;
+  }
+  .footer-nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  .footer-nav a { color: var(--text-muted); font-weight: 600; }
+  .footer-nav a:hover { color: var(--navy); }
+  .footer-nav .next { color: var(--navy); }
+
+  @media (max-width: 860px) {
+    .case-block .wrap { grid-template-columns: 1fr; gap: 28px; }
+    .process-stack { flex-direction: column; }
+    .process-arrow { transform: rotate(90deg); }
+    .layer-stack { height: 300px; }
+    .rationale-grid { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Fish companion ---------- */
+  .pond-fish {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 46px;
+    height: 24px;
+    z-index: 999;
+    pointer-events: none;
+    transform-origin: 23px 12px;
+    opacity: 0.92;
+  }
+
+  .fish-tail {
+    transform-origin: 12px 12px;
+    animation: tail-wag 0.55s ease-in-out infinite;
+  }
+
+  @keyframes tail-wag {
+    0%, 100% { transform: rotate(14deg); }
+    50%      { transform: rotate(-14deg); }
+  }
+
+  h1, h2, h3, p, li {
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1), text-shadow 0.4s ease;
+  }
+
+  .risen {
+    transform: translateY(-9px);
+    text-shadow: 0 14px 20px rgba(27, 42, 94, 0.16);
+  }
+
+  .meta-badge {
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .meta-badge.fish-highlight {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+  }
+  .meta-badge.fish-highlight strong { color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .risen, .fish-highlight { transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- Image lightbox ---------- */
+  .zoomable { cursor: zoom-in; }
+
+  .lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 14, 30, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    padding: 50px;
+    cursor: zoom-out;
+  }
+  .lightbox-overlay.active { display: flex; }
+
+  .lightbox-overlay img, .lightbox-overlay video {
+    max-width: 92vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    cursor: default;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 22px;
+    right: 28px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.24); }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="logo mono">A. DELEON</span>
+    <nav>
+      <a href="index.html#top">Home</a>
+    </nav>
+  </div>
+
+  <svg class="pond-fish" id="fish" viewBox="-8 0 50 24" xmlns="http://www.w3.org/2000/svg">
+    <path class="fish-tail" d="M12 12 L-6 4 L-6 20 Z" fill="var(--blue)"/>
+    <ellipse cx="26" cy="12" rx="15" ry="7" fill="var(--navy)"/>
+    <circle cx="36" cy="10" r="1.5" fill="#fff"/>
+  </svg>
+
+
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+    <video id="lightboxVideo" controls loop playsinline style="display:none;"></video>
+  </div>
+
+  <section class="case-hero wrap">
+    <p class="eyebrow">Case Study — 01</p>
+    <h1>Autodesk Impact Hub</h1>
+    <p class="case-subtitle">Corporate Volunteering &amp; Donation Matching iOS App</p>
+    <div class="meta-row">
+      <span class="meta-badge">Where: <strong>Autodesk</strong></span>
+      <span class="meta-badge">Role: <strong>Product Design Intern</strong></span>
+      <span class="meta-badge">Tools: <strong>Figma</strong></span>
+    </div>
+
+    <div class="layer-stack">
+      <div class="layer-card back">Swap for a supporting image</div>
+      <div class="layer-card front"><img src="assets/project01-hero.gif" alt="Autodesk Impact Hub app preview" class="zoomable"></div>
+    </div>
+  </section>
+
+  <section class="case-block">
+    <div class="wrap">
+      <div>
+        <p class="section-label">Brief</p>
+
+        <p class="sub-label">Project Overview</p>
+        <p class="field-row"><span class="label-blue">Project Name</span>Autodesk Impact Hub</p>
+        <p class="field-row"><span class="label-blue">Project Type</span>Native iOS Application Design &amp; Front-End Development</p>
+        <p class="field-row"><span class="label-blue">Target Audience</span>Autodesk employees, foundation leaders, and non-profit partner organizations</p>
+
+        <p class="sub-label">Problem Statement</p>
+        <p class="body-text">Autodesk employees faced high-friction, multi-step web workflows when trying to record volunteer hours and request corporate donation matching. The lack of a centralized mobile experience led to dropped engagement, unrecorded volunteer hours, and limited visibility into Autodesk Foundation initiatives and non-profit partner campaigns.</p>
+      </div>
+      <div>
+        <p class="section-label">Solution</p>
+        <p class="body-text">Autodesk Impact Hub is a mobile-first iOS application designed to streamline employee civic giving and community involvement. By replacing fragmented web forms with a seamless mobile interface, the application simplifies volunteer logging, automates donation matching requests, and elevates Foundation updates through interactive social feeds and curated non-profit partner discovery.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="prototype-section">
+    <div class="wrap">
+      <p class="section-label">Prototype</p>
+      <a href="https://www.figma.com/proto/yslaVrVFCjQYjoAfLCIcGt/Autodesk-Employee-Impact-Hub?node-id=2-2&p=f&t=zA15i1O2rHWZfmhV-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2" class="btn-primary" target="_blank" rel="noopener noreferrer">View Interactive Prototype →</a>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="wrap">
+      <p class="section-label">Process</p>
+      <div class="process-stack">
+        <div class="process-card wireframe has-img">
+          <img src="assets/wireframe-autodesk.png" alt="Autodesk Impact Hub hand-drawn wireframes" class="zoomable">
+        </div>
+        <span class="process-arrow">→</span>
+        <div class="process-card figma has-img">
+          <img src="assets/figma-autodesk.png" alt="Autodesk Impact Hub high-fidelity Figma screens" class="zoomable">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature-section">
+    <div class="wrap">
+      <p class="section-label">Key Features &amp; Capabilities</p>
+      <div class="feature-grid">
+        <div class="feature-card has-media">
+          <div class="feature-media">
+            <video src="assets/autodesk-volunteer-portal.mov" class="zoomable" autoplay loop muted playsinline></video>
+          </div>
+          <div class="feature-text">
+            <p class="feature-title">Dedicated Volunteer Portal</p>
+            <p class="feature-body">A centralized main page specifically for all volunteer activities, allowing users to seamlessly manage upcoming opportunities, manually add new events, and jump straight into tracking their time.</p>
+          </div>
+        </div>
+        <div class="feature-card has-media">
+          <div class="feature-media">
+            <video src="assets/autodesk-volunteer-tracking.mov" class="zoomable" autoplay loop muted playsinline></video>
+          </div>
+          <div class="feature-text">
+            <p class="feature-title">One-Tap Volunteer &amp; Donation Tracking</p>
+            <p class="feature-body">Streamlined mobile workflows that significantly reduce input steps for logging hours and requesting corporate matching.</p>
+          </div>
+        </div>
+        <div class="feature-card has-media">
+          <div class="feature-media">
+            <video src="assets/autodesk-discovery-hub.mov" class="zoomable" autoplay loop muted playsinline></video>
+          </div>
+          <div class="feature-text">
+            <p class="feature-title">Community News &amp; Explore Hub</p>
+            <p class="feature-body">Features an Explore page that highlights local community news, trending people, and active cause posts.</p>
+          </div>
+        </div>
+        <div class="feature-card has-media">
+          <div class="feature-media">
+            <video src="assets/autodesk-social-feed.mov" class="zoomable" autoplay loop muted playsinline></video>
+          </div>
+          <div class="feature-text">
+            <p class="feature-title">Social Activity Feed</p>
+            <p class="feature-body">Interactive community feed enabling employees to share photos, post project updates, and celebrate peer volunteer achievements.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <p class="feature-title">Foundation Partner Showcase</p>
+          <p class="feature-body">Direct access to Autodesk Foundation non-profit partner profiles, active campaigns, and fundraising targets.</p>
+        </div>
+        <div class="feature-card">
+          <p class="feature-title">Impact Tracking &amp; Visualization</p>
+          <p class="feature-body">Real-time progress metrics displaying individual and company-wide volunteer milestones to incentivize ongoing participation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rationale-section">
+    <div class="wrap">
+      <p class="section-label">Design &amp; User Experience Iterations</p>
+      <div class="rationale-grid">
+        <div class="rationale-card">
+          <div class="rationale-text">
+            <p class="rationale-tag">User-Centric Persona Mapping</p>
+            <p class="rationale-body">Streamlined navigation branches based on stakeholder interviews with active volunteers, passive volunteers, and impact data managers to address specific friction points.</p>
+          </div>
+        </div>
+        <div class="rationale-card">
+          <div class="rationale-text">
+            <p class="rationale-tag">Mobile-First Interface Design</p>
+            <p class="rationale-body">Redesigned high-density web forms into clean, low-tap mobile screen flows and intuitive category selection grids in Figma.</p>
+          </div>
+        </div>
+        <div class="rationale-card">
+          <div class="rationale-text">
+            <p class="rationale-tag">Rapid Swift Implementation</p>
+            <p class="rationale-body">Swiftly built functional native iOS view components and interactive screen flows in Swift and Swift Playgrounds within an intensive six-week development timeline.</p>
+          </div>
+        </div>
+        <div class="rationale-card">
+          <div class="rationale-text">
+            <p class="rationale-tag">Strategic Feature Framework</p>
+            <p class="rationale-body">Categorized platform features into four strategic design pillars — Features, Engagement, Accessibility, and Comprehensibility — to align user experience with organizational goals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="outcome-section">
+    <div class="wrap">
+      <p class="section-label">Outcome</p>
+      <p class="body-text">The Autodesk Impact Hub successfully transformed Autodesk's corporate giving experience by replacing fragmented web workflows with an intuitive, mobile-first native iOS application. By addressing key friction points across user personas, the project delivered a low-tap platform that simplifies hour logging, automates donation matching, and highlights Foundation partners. Developed within an intensive six-week sprint in Swift and Swift Playgrounds, the app established a cohesive framework to boost employee participation and strengthen community impact company-wide.</p>
+    </div>
+  </section>
+
+  <div class="footer-nav">
+    <div class="wrap">
+      <a href="index.html#top">← Back to Home</a>
+      <a class="next" href="project-02.html">Next Project →</a>
+    </div>
+  </div>
+
+
+<script>
+  // Fish companion: roams the whole page, follows the cursor, and
+  // highlights whatever text it swims underneath
+  (function () {
+    const fish = document.getElementById('fish');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      fish.style.display = 'none';
+      return;
+    }
+
+    function collectTargets() {
+      return Array.from(document.querySelectorAll('h1, h2, h3, p, li, .meta-badge'))
+        .filter((el) => !el.closest('.topbar'));
+    }
+    let targets = collectTargets();
+
+    const FISH_W = 46, FISH_H = 24;
+    let pos = { x: window.innerWidth * 0.3, y: window.innerHeight * 0.3 };
+    let target = { ...pos };
+    let angle = 0;
+    let idle = true;
+    let idleT = Math.random() * 10;
+    let idleTimeout = null;
+
+    window.addEventListener('mousemove', (e) => {
+      idle = false;
+      clearTimeout(idleTimeout);
+      target.x = e.clientX;
+      target.y = e.clientY;
+      idleTimeout = setTimeout(() => { idle = true; }, 2200);
+    });
+
+    function tick() {
+      const w = window.innerWidth, h = window.innerHeight;
+
+      if (idle) {
+        idleT += 0.006;
+        target.x = w * 0.5 + Math.sin(idleT) * (w * 0.32);
+        target.y = h * 0.4 + Math.sin(idleT * 0.7) * (h * 0.22);
+      }
+
+      const dx = target.x - pos.x;
+      const dy = target.y - pos.y;
+      pos.x += dx * 0.06;
+      pos.y += dy * 0.06;
+
+      if (Math.abs(dx) + Math.abs(dy) > 0.6) {
+        angle = Math.atan2(dy, dx) * (180 / Math.PI);
+      }
+
+      fish.style.transform =
+        `translate(${pos.x - FISH_W / 2}px, ${pos.y - FISH_H / 2}px) rotate(${angle}deg)`;
+
+      const pad = 14;
+      targets.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const overlapping =
+          pos.x > r.left - pad && pos.x < r.right + pad &&
+          pos.y > r.top - pad && pos.y < r.bottom + pad;
+        const isChip = el.classList.contains('meta-badge');
+        el.classList.toggle(isChip ? 'fish-highlight' : 'risen', overlapping);
+      });
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    setInterval(() => { targets = collectTargets(); }, 4000);
+  })();
+</script>
+
+<script>
+  // Lightbox: click any case-study image or video to view it full size
+  (function () {
+    const overlay = document.getElementById('lightbox');
+    const imgEl = document.getElementById('lightboxImg');
+    const videoEl = document.getElementById('lightboxVideo');
+    const closeBtn = document.getElementById('lightboxClose');
+
+    function openLightbox(el) {
+      if (el.tagName === 'VIDEO') {
+        imgEl.style.display = 'none';
+        imgEl.src = '';
+        videoEl.style.display = '';
+        videoEl.src = el.currentSrc || el.src;
+        videoEl.muted = false;
+        videoEl.currentTime = 0;
+        videoEl.play().catch(() => {});
+      } else {
+        videoEl.pause();
+        videoEl.style.display = 'none';
+        videoEl.src = '';
+        imgEl.style.display = '';
+        imgEl.src = el.currentSrc || el.src;
+        imgEl.alt = el.alt || '';
+      }
+      overlay.classList.add('active');
+    }
+    function closeLightbox() {
+      overlay.classList.remove('active');
+      imgEl.src = '';
+      imgEl.style.display = '';
+      videoEl.pause();
+      videoEl.src = '';
+      videoEl.style.display = 'none';
+    }
+
+    document.querySelectorAll('.zoomable').forEach((el) => {
+      el.addEventListener('click', () => openLightbox(el));
+    });
+
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeLightbox(); });
+    closeBtn.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  })();
+</script>
+</body>
+</html>
